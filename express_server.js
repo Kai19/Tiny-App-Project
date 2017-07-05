@@ -35,6 +35,11 @@ app.get("/urls/new", (req, res) => {
   res.render("urls_new");
 });
 
+app.get("/urls/:id", (req, res) => {
+  res.render("urls_show", { shortURL:req.params.id,
+                            longURL: urlDatabase[req.params.id]});
+});
+
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL];
   if(longURL){
@@ -42,11 +47,6 @@ app.get("/u/:shortURL", (req, res) => {
   }else{
     res.end("Not found");
   }
-});
-
-app.get("/urls/:id", (req, res) => {
-  res.render("urls_show", { shortURL:req.params.id,
-                            longURL: urlDatabase[req.params.id]});
 });
 
 app.post("/urls", (req, res) => {
@@ -58,6 +58,11 @@ app.post("/urls", (req, res) => {
   res.redirect(`/urls/${randString}`);
 });
 
+app.post("/urls/:id/delete", (req, res) => {
+    delete urlDatabase[req.params.id];
+    console.log(urlDatabase);
+    res.redirect("/urls");
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

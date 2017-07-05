@@ -8,6 +8,10 @@
   <ul>
     <% for(let url in urls){ %>
     <li><%= `${url} : ${urls[url]}`%></li>
+    <li><form method="POST" action="/urls/<%= url %>/delete">
+      <input type="submit" value="delete">
+      </form>
+    </li>
     <%} %>
   </ul>
 </body>
