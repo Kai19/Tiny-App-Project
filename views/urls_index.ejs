@@ -7,10 +7,13 @@
 <body>
   <ul>
     <% for(let url in urls){ %>
-    <li><%= `${url} : ${urls[url]}`%> <a href="/urls/<%= url %>">Edit</a></li>
-    <form method="POST" action="/urls/<%= url %>/delete">
-      <input type="submit" value="Delete">
+    <div>
+      <li style="display: inline-block;"><%= `${url} : ${urls[url]}`%></li>
+      <a href="/urls/<%= url %>" style="display: inline-block;">Edit</a>
+      <form method="POST" action="/urls/<%= url %>/delete" style="display: inline-block;">
+        <input type="submit" value="Delete">
       </form>
+    </div>
     <%} %>
   </ul>
 </body>
