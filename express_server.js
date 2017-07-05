@@ -18,8 +18,9 @@ app.get("/urls", (req, res) => {
 });
 
 app.get("/urls/:id", (req, res) => {
-  res.render("urls_show", { shortURL: urlDatabase[req.params.id]});
-});
+  res.render("urls_show", { shortURL:req.params.id,
+                            longURL: urlDatabase[req.params.id]});
+                          });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
