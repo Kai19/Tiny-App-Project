@@ -64,6 +64,12 @@ app.post("/urls/:id/delete", (req, res) => {
     res.redirect("/urls");
 });
 
+app.post("/urls/:id/edit", (req, res) => {
+    urlDatabase[req.params.id] = req.body.longURL;
+    console.log(urlDatabase);
+    res.redirect("/urls");
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
