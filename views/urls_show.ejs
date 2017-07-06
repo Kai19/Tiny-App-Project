@@ -6,10 +6,11 @@
 </head>
 <body>
   <ul>
-    <p>shortURL: <%=shortURL%></p>
-    <p>longURL: <%=longURL%></p>
+    <div style= "position: relative; bottom: -90px; left: -30px">
+      <a style="color: #d8e2e8;">short_url &#10139; <%=shortURL%></a> &#9747; &#9747; &#9747; <a style="color: #d8e2e8;">long_url &#10139; <%=longURL%></a>
+    </div>
     <form action="/urls/<%=shortURL%>/edit" method="POST" style="margin:150px;">
-      <label for="longURL">Update longURL here:</label>
+      <label for="longURL" style="color: #d8e2e8;">Update longURL here:</label>
       <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
       <input type="submit" value="Edit">
     </form>

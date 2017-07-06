@@ -71,8 +71,6 @@ app.post("/urls", (req, res) => {
     urlDatabase[randString] = req.body.longURL;
     console.log(urlDatabase);
     res.redirect(`/urls/${randString}`);
-  }else{
-    res.end("Invalid input please try again!")
   }
 });
 
@@ -80,9 +78,7 @@ app.post("/login", (req, res) =>{
   if(req.body.username){
     res.cookie("username", req.body.username);
     res.redirect("/urls");
-  }else{
-    res.end("Please input username :) ");
-  };
+  }
 })
 
 app.post("/logout", (req, res) =>{
@@ -102,8 +98,6 @@ app.post("/urls/:id/edit", (req, res) => {
     urlDatabase[req.params.id] = req.body.longURL;
     console.log(urlDatabase);
     res.redirect("/urls");
-  }else{
-    res.end("Please put a valid input! and have a nice day :)")
   }
 });
 

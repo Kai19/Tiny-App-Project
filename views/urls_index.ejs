@@ -7,9 +7,9 @@
 <body>
   <ul>
     <% for(let url in urls){ %>
-    <div>
+    <div style= "position: relative; left: -5px; bottom: -100px; color: #d8e2e8;">
       <li style="display: inline-block;"><%= `${url} : ${urls[url]}`%></li>
-      <a href="/urls/<%= url %>" style="display: inline-block;">Edit</a>
+      <a href="/urls/<%= url %>" style="display: inline-block; color: #d8e2e8;">Edit</a>
       <form method="POST" action="/urls/<%= url %>/delete" style="display: inline-block;">
         <input type="submit" value="Delete">
       </form>

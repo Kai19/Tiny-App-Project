@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
-
-<nav class="navbar navbar-default" role="navigation">
-  <%if(username){%>
-    <p style="display: inline-body;"><%=username%></p>
-    <form action="/logout" method="POST">
-      <input type='submit' value='Logout'/>
-    </form>
-  <%}else{%>
-    <form action="/login" method="POST">
-      <input name="username" placeholder="username" style="width: 100px"/>
-      <input type='submit' value='Sign In'/>
-    </form>
-  <%}%>
-    <ul class="nav navbar-nav">
-      <h1>TinyApp</h1>
-      <a href="/">Home</a> <a href="/urls/new">New Http</a>
-    </ul>
-  </div>
-</nav>
-<body style="font-size:20px; padding:50px;">
-
-</body>
-
+<header style = "line-height: 0px">
+  <nav class="navbar navbar-default" role="navigation">
+    <div style="float: right">
+      <%if(username){%>
+        <p style="display: inline-body;"><%=username%></p>
+        <form action="/logout" method="POST">
+          <input type='submit' value='Logout'/>
+        </form>
+      <%}else{%>
+        <form action="/login" method="POST">
+          <input name="username" placeholder="username" style="width: 100px"/>
+          <input type='submit' value='Sign In'/>
+        </form>
+      <%}%>
+    </div >
+    <div style= "position: relative; right: -60px;">
+      <a style="font-size: 5rem; font-weight: bolder; color:#B2BEB5; display: inline-body;">Tiny</a><a style="font-size: 10rem; font-weight: bolder; color:#B2BEB5; display: inline-body;">APP</a>
+    </div>
+    <div style= "position: relative; right: 20px; font-weight:bold; bottom: -40px; font-size: 1.3em; font-style: Arial;">
+      <a href="/" style="color: #d8e2e8;">Home</a> &#9876; <a href="/urls/new" style="color: #d8e2e8;;">New Http</a>
+    </div>
+  </nav>
+</header>
+  <body style="font-size:20px; padding:180px; text-align:center; background-color: #5a6469">
+  </body>
 </html>
