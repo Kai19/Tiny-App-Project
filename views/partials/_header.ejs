@@ -1,14 +1,26 @@
 <!DOCTYPE html>
+<html>
+
 <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-      </a>
-    </div>
+  <%if(username){%>
+    <p style="display: inline-body;"><%=username%></p>
+    <form action="/logout" method="POST">
+      <input type='submit' value='Logout'/>
+    </form>
+  <%}else{%>
+    <form action="/login" method="POST">
+      <input name="username" placeholder="username" style="width: 100px"/>
+      <input type='submit' value='Sign In'/>
+    </form>
+  <%}%>
     <ul class="nav navbar-nav">
       <h1>TinyApp</h1>
-      <a href="/">Home</a></li>
+      <a href="/">Home</a> <a href="/urls/new">New Http</a>
     </ul>
   </div>
 </nav>
+<body style="font-size:20px; padding:50px;">
+
+</body>
+
+</html>
