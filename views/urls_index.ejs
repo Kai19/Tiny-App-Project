@@ -6,14 +6,16 @@
 </head>
 <body>
   <ul>
-    <% for(let url in urls){ %>
-    <div style= "position: relative; left: -5px; bottom: -100px; color: #d8e2e8;">
-      <li style="display: inline-block;"><%= `${url} : ${urls[url]}`%></li>
-      <a href="/urls/<%= url %>" style="display: inline-block; color: #d8e2e8;">Edit</a>
-      <form method="POST" action="/urls/<%= url %>/delete" style="display: inline-block;">
-        <input type="submit" value="Delete">
-      </form>
-    </div>
+    <% for(let user in urls){ %>
+      <div style= "position: relative; left: -5px; bottom: -100px; color: #d8e2e8;">
+        <% for(let shortURL in urls[user]){ %>
+        <li style="display: inline-block;"><%= shortURL %> : <%= urls[user][shortURL]%></li>
+        <a href="/urls/<%= Object.keys(user)%>" style="display: inline-block; color: #d8e2e8;">Edit</a>
+        <form method="POST" action="/urls/<%= user %>/delete" style="display: inline-block;">
+          <input type="submit" value="Delete">
+        </form>
+      </div>
+      <%} %>
     <%} %>
   </ul>
 </body>

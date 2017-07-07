@@ -56,9 +56,8 @@ function emailChecker(email){
 
 app.set("view engine", "ejs");
 
-var urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
+var urlDatabase = {User1: {"b2xVn2": "http://www.lighthouselabs.ca"},
+                  User2: {"9sm5xK": "http://www.google.com"}
 };
 
 app.get("/", (req, res) => {
@@ -96,16 +95,22 @@ app.get("/urls", (req, res) => {
 });
 
 app.get("/urls/new", (req, res) => {
-  let templateVars = {
-    user: users[req.cookies["user_id"]]
-  };
-  res.render("urls_new", templateVars);
+  if(users[req.cookies["user_id"]]){
+    let templateVars = {
+      user: users[req.cookies["user_id"]]
+    };
+    res.render("urls_new", templateVars);
+  }else{
+    res.redirect("/login");
+  }
 });
 
 app.get("/urls/:id", (req, res) => {
-  res.render("urls_show", { shortURL: req.params.id,
-                            longURL: urlDatabase[req.params.id],
-                            user: users[req.cookies["user_id"]]});
+  const shortURL = req.params.id;
+  res.render("urls_show", { user: users[req.cookies["user_id"]],
+                            shortURL: shortURL,
+                            longURL: urlDatabase[req.cookies["user_id"]][shortURL]
+                            });
 });
 
 app.get("/u/:shortURL", (req, res) => {
@@ -118,12 +123,13 @@ app.get("/u/:shortURL", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  if(req.body.longURL){
+  // if(req.body.longURL){
     const randString = generateRandomString();
-    urlDatabase[randString] = req.body.longURL;
+    const userID = req.cookies["user_id"];
+    urlDatabase[userID][randString] = req.body.longURL;
     console.log(urlDatabase);
     res.redirect(`/urls/${randString}`);
-  }
+  // }
 });
 
 app.post("/login", (req, res) =>{
@@ -134,6 +140,7 @@ app.post("/login", (req, res) =>{
   }else{
     res.sendStatus("403");
   }
+  urlDatabase[emailChecker(req.body.email)] = {};
 });
 
 app.post("/logout", (req, res) =>{
@@ -153,22 +160,25 @@ app.post("/register", (req, res) =>{
       email: req.body.email,
       password: req.body.password
     };
+    urlDatabase[randUser] = {};
     res.cookie("user_id", randUser);
     res.redirect("/urls");
   }
 });
 
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id];
+  delete urlDatabase[req.cookies["user_id"]][req.params.id];
   console.log(urlDatabase);
   res.redirect("/urls");
 });
 
 app.post("/urls/:id/edit", (req, res) => {
   if(req.body.longURL){
-    urlDatabase[req.params.id] = req.body.longURL;
-    console.log(urlDatabase);
-    res.redirect("/urls");
+    if(urlDatabase[req.cookies.user_id][req.params.id]){
+      urlDatabase[req.cookies.user_id][req.params.id] = req.body.longURL;
+      console.log(urlDatabase);
+      res.redirect("/urls");
+    }
   }
 });
 
