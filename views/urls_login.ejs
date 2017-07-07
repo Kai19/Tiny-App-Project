@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <% include partials/_header %>
+</head>
+<body>
+  <div style="position: relative; bottom: -100px">
+    <h1>Welcome to TinyApp!</h1>
+    <table style="position:relative; left:500px">
+      <form action="/login" method="POST" style="margin:150px;">
+        <tr>
+          <th>
+            <label for="email" style="color: #d8e2e8;">Email:</label>
+            <input id="email" type="email" name="email" placeholder="example@gmail.com" style="width: 300px">
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <label for="password" style="color: #d8e2e8;">Password:</label>
+            <input id="password" type="password" name="password" style="width: 300px">
+            <input type="submit" value="Submit">
+          </th>
+        </tr>
+    </form>
+  </table>
+  </div>
+</body>
+</html>
