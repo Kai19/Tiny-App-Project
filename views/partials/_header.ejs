@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html>
-<header style = "line-height: 0px">
+
+<header>
   <nav class="navbar navbar-default" role="navigation">
-    <div style= "position:relative; float:right; bottom: 80px;">
+    <div style= "text-align: right;">
       <%if(user){%>
-        <p style="display: inline-body; font-weight:bold; color:#B2BEB5; position:relative; bottom: 10px "><%=user.email%></p>
-        <form action="/logout" method="POST" style= "position: relative; display: inline-body";>
+        <span style="font-weight:bold; color:#B2BEB5;"><%=user.email%></span>
+        <form action="/logout" method="POST" style= "display: inline-block;">
           <input type='submit' value='Logout'/>
         </form>
       <%}else{%>
-        <a href ="/login" style=" display:inline; position:relative; bottom: 12px; left: 120px;">Login</a>
-        <a href="/register" style=" display:inline; position:relative; bottom: 12px; left: 120px;">Register</a>
+        <a href ="/login">Login</a>
+        <a href="/register">Register</a>
       <%}%>
     </div >
-    <div style= "position: relative; right: 0px;">
-      <a style="font-size: 5rem; font-weight: bolder; color:#B2BEB5; display: inline-body;">Tiny</a><a style="font-size: 10rem; font-weight: bolder; color:#B2BEB5; display: inline-body;">APP</a>
+    <div>
+      <h1>
+        <span style="font-size: 5rem; font-weight: bolder; color:#B2BEB5;">Tiny</span><span style="font-size: 10rem; font-weight: bolder; color:#B2BEB5;">APP</span>
+      </h1>
     </div>
-    <div style= "position: relative; right: 20px; font-weight:bold; bottom: -40px; font-size: 1.3em; font-style: Arial;">
+    <div style= "font-weight:bold; font-size: 1.3em; font-style: Arial; margin-top: -30px;">
       <a href="/" style="color: #d8e2e8;">Home</a> &#9876; <a href="/urls/new" style="color: #d8e2e8;;">New Http</a>
     </div>
   </nav>
 </header>
-  <body style="font-size:20px; padding:180px; text-align:center; background-color: #5a6469">
-  </body>
-</html>

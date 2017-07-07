@@ -46,7 +46,7 @@ function generateRandomString() {
 
 function emailChecker(email){
   // return !!Object.values(users).find(user=>user.email===email)
-  for(const uid in users){
+  for(let uid in users){
     if(users[uid].email === email){
       return uid;
     }
@@ -54,19 +54,30 @@ function emailChecker(email){
   return false;
 }
 
+function httpCheck(longURL){
+  if(longURL.includes('https') || longURL.includes('http')){
+    return longURL;
+  }else{
+    const newLongUrl = "http://" + longURL;
+    return newLongUrl;
+  }
+}
+
 app.set("view engine", "ejs");
 
-var urlDatabase = {User1: {"b2xVn2": "http://www.lighthouselabs.ca"},
-                  User2: {"9sm5xK": "http://www.google.com"}
+var urlDatabase = {
+  User1: {"b2xVn2": "http://www.lighthouselabs.ca"},
+  User2: {"9sm5xK": "http://www.google.com"},
+  kai: {"Wah4h4": "http://www.muggle.com"}
 };
+  // "b2xVn2": {
+  //             url:  "http://www.lighthouselabs.ca",
+  //             user: User1
+  //           },
+
 
 app.get("/", (req, res) => {
-  let templateVars = {
-    urls: urlDatabase,
-    user: users[req.cookies["user_id"]]
-  };
-  console.log(templateVars);
-  res.render("urls_index", templateVars);
+  res.redirect("/urls");
 });
 
 app.get("/login", (req, res) => {
@@ -74,7 +85,6 @@ app.get("/login", (req, res) => {
     urls: urlDatabase,
     user: users[req.cookies["user_id"]]
   };
-  console.log(templateVars);
   res.render("urls_login", templateVars);
 });
 
@@ -89,7 +99,7 @@ app.get("/register", (req, res) => {
 app.get("/urls", (req, res) => {
   let templateVars = {
     urls: urlDatabase,
-    user: users[req.cookies["user_id"]]
+    user: users[req.cookies["user_id"]],
   };
   res.render("urls_index", templateVars);
 });
@@ -114,7 +124,17 @@ app.get("/urls/:id", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL];
+  let longURL = "";
+  for(let user in urlDatabase){
+    for(let shortURL in urlDatabase[user]){
+      if(req.params.shortURL === shortURL){
+        longURL = urlDatabase[user][shortURL];
+        break;
+      }
+    }
+  };
+  longURL = httpCheck(longURL);
+  console.log(longURL);
   if(longURL){
     res.redirect(longURL);
   }else{
@@ -126,7 +146,12 @@ app.post("/urls", (req, res) => {
   // if(req.body.longURL){
     const randString = generateRandomString();
     const userID = req.cookies["user_id"];
-    urlDatabase[userID][randString] = req.body.longURL;
+    if(urlDatabase[userID] === undefined){
+      urlDatabase[userID] = {};
+      urlDatabase[userID][randString] = req.body.longURL;
+    }else{
+      urlDatabase[userID][randString] = req.body.longURL;
+    }
     console.log(urlDatabase);
     res.redirect(`/urls/${randString}`);
   // }
@@ -140,7 +165,6 @@ app.post("/login", (req, res) =>{
   }else{
     res.sendStatus("403");
   }
-  urlDatabase[emailChecker(req.body.email)] = {};
 });
 
 app.post("/logout", (req, res) =>{
@@ -160,7 +184,6 @@ app.post("/register", (req, res) =>{
       email: req.body.email,
       password: req.body.password
     };
-    urlDatabase[randUser] = {};
     res.cookie("user_id", randUser);
     res.redirect("/urls");
   }

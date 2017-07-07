@@ -2,21 +2,59 @@
 <html lang="en">
 <head>
   <title>TinyApp</title>
-  <% include ./partials/_header%>
+  <style>
+    a {
+      color: #d8e2e8;
+    }
+    table {
+      width: 40%;
+      margin: 50px auto 0;
+      border: 1px solid white;
+      border-collapse: collapse;
+    }
+    td ,th {
+      border: 1px solid white;
+      padding: 5px;
+      color: white;
+    }
+  </style>
 </head>
-<body>
-  <ul>
-    <% for(let user in urls){ %>
-      <div style= "position: relative; left: -5px; bottom: -100px; color: #d8e2e8;">
-        <% for(let shortURL in urls[user]){ %>
-        <li style="display: inline-block;"><%= shortURL %> : <%= urls[user][shortURL]%></li>
-        <a href="/urls/<%= Object.keys(user)%>" style="display: inline-block; color: #d8e2e8;">Edit</a>
-        <form method="POST" action="/urls/<%= user %>/delete" style="display: inline-block;">
-          <input type="submit" value="Delete">
-        </form>
-      </div>
-      <%} %>
-    <%} %>
-  </ul>
+<body style="font-size:20px; padding:100px; text-align:center; background-color: #5a6469">
+  <% include ./partials/_header%>
+  <table>
+      <% if(user){ %>
+        <% for(let userID in urls){ %>
+          <% if(user.id === userID){ %>
+            <thead>
+              <tr>
+                <th>
+                  TinyLink
+                </th>
+                <th>
+                  OriginalURL
+                </th>
+                <th>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(let shortURL in urls[userID]){ %>
+              <tr>
+                <td><a href="/u/<%= shortURL %>">http://tiny.app/u/<%=shortURL%></a></td>
+                <td><%= urls[userID][shortURL]%></td>
+                <td>
+                  <a href="/urls/<%= shortURL%>" style="color: #d8e2e8;"><button>Edit</button></a>
+                  <form method="POST" action="/urls/<%= shortURL %>/delete" style="display: inline-block;">
+                    <input type="submit" value="Delete">
+                  </form>
+                </td>
+              </tr>
+              <%}%>
+            </tbody>
+          <%}%>
+        <%}%>
+      <%}%>
+  </table>
 </body>
 </html>
