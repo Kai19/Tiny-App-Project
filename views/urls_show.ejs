@@ -6,8 +6,8 @@
 <body style="font-size:20px; padding:100px; text-align:center; background-color: #5a6469">
   <% include ./partials/_header%>
   <ul>
-    <div style= "position: relative; bottom: -90px; left: -30px">
-      <a style="color: #d8e2e8;">short_url &#10139; <%=shortURL%></a> &#9747; &#9747; &#9747; <a style="color: #d8e2e8;">long_url &#10139; <%=longURL%></a>
+    <div style= "position: relative; bottom: -60px; left: -25px">
+      <a style="color: #d8e2e8;">Tiny URL &#10139; <%=shortURL%></a> &#9747; &#9747; &#9747; <a style="color: #d8e2e8;">Original URL &#10139; <%=longURL%></a>
     </div>
     <form action="/urls/<%=shortURL%>/edit" method="POST" style="margin:150px;">
       <label for="longURL" style="color: #d8e2e8;">Update longURL here:</label>
